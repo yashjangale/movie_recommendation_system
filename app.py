@@ -55,20 +55,19 @@ if movie_name:
     except Exception as e:
         st.write("Movie not found in dataset. Try another title.")
 
-# Detect the theme and adjust chart styles
-theme = st.runtime.scriptrunner.script_run_context.get_script_run_ctx().session_state.theme
-is_dark_theme = theme.get("base") == "dark"
+# Dark mode toggle
+dark_mode = st.checkbox("Enable Dark Mode")
 
 # Set chart styles based on theme
 sns.set_theme(
-    style="darkgrid" if is_dark_theme else "whitegrid",
+    style="darkgrid" if dark_mode else "whitegrid",
     rc={
-        "axes.facecolor": "#212121" if is_dark_theme else "#FFFFFF",
-        "axes.labelcolor": "#FFFFFF" if is_dark_theme else "#000000",
-        "xtick.color": "#FFFFFF" if is_dark_theme else "#000000",
-        "ytick.color": "#FFFFFF" if is_dark_theme else "#000000",
-        "text.color": "#FFFFFF" if is_dark_theme else "#000000",
-        "grid.color": "#383838" if is_dark_theme else "#DDDDDD",
+        "axes.facecolor": "#212121" if dark_mode else "#FFFFFF",
+        "axes.labelcolor": "#FFFFFF" if dark_mode else "#000000",
+        "xtick.color": "#FFFFFF" if dark_mode else "#000000",
+        "ytick.color": "#FFFFFF" if dark_mode else "#000000",
+        "text.color": "#FFFFFF" if dark_mode else "#000000",
+        "grid.color": "#383838" if dark_mode else "#DDDDDD",
     },
 )
 
@@ -77,8 +76,8 @@ st.write("### Top Movie Genres")
 top_genres = df['genres'].str.split('|').explode().value_counts().head(10)
 
 fig, ax = plt.subplots()
-sns.barplot(x=top_genres.values, y=top_genres.index, ax=ax, alpha=0.8, palette="dark" if is_dark_theme else "deep")
-ax.set_title('Top Genres', color="#FFFFFF" if is_dark_theme else "#000000")
-ax.set_xlabel('Count', color="#FFFFFF" if is_dark_theme else "#000000")
-ax.set_ylabel('Genre', color="#FFFFFF" if is_dark_theme else "#000000")
+sns.barplot(x=top_genres.values, y=top_genres.index, ax=ax, alpha=0.8, palette="dark" if dark_mode else "deep")
+ax.set_title('Top Genres', color="#FFFFFF" if dark_mode else "#000000")
+ax.set_xlabel('Count', color="#FFFFFF" if dark_mode else "#000000")
+ax.set_ylabel('Genre', color="#FFFFFF" if dark_mode else "#000000")
 st.pyplot(fig)
