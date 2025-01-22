@@ -68,7 +68,7 @@ top_genres = df['genres'].str.split('|').explode().value_counts().head(10)
 
 # Create a more sophisticated bar plot with transparency and enhanced styling
 fig, ax = plt.subplots(figsize=(10, 6))
-sns.barplot(x=top_genres.values, y=top_genres.index, ax=ax, palette='viridis', alpha=0.5)
+sns.barplot(x=top_genres.values, y=top_genres.index, ax=ax, palette='viridis', alpha=0.7)
 
 # Adding some extra customizations to the plot
 ax.set_title('Top 10 Movie Genres', fontsize=16, fontweight='bold', color='darkblue')
@@ -86,7 +86,7 @@ st.pyplot(fig)
 if 'vote_average' in df.columns:
     st.write("### Movie Rating Distribution")
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.histplot(df['vote_average'], bins=20, kde=True, color='teal', alpha=0.3, ax=ax)
+    sns.histplot(df['vote_average'], bins=20, kde=True, color='teal', alpha=0.6, ax=ax)
     ax.set_title('Movie Rating Distribution', fontsize=16, fontweight='bold', color='darkblue')
     ax.set_xlabel('Rating', fontsize=12)
     ax.set_ylabel('Frequency', fontsize=12)
